@@ -90,7 +90,7 @@ class Graph extends React.Component {
         <button
          className="btn btn-info btn-md"
          type="button"
-         onClick={() => this.drawGraphCompareScores(this.props.dataSet, this.props.username)}>
+         onClick={() => this.drawGraphCompareScores(this.props.dataSet.slice(), this.props.username)}>
             Compare Scores
         </button>
         <button
