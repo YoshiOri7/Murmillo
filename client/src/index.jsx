@@ -26,7 +26,6 @@ ReactDOM.render(
     <Router history={hashHistory}>
       <Route path='/' component={App}>
         <IndexRoute component={Home} />
-        <Route path='showGraphs' component={GraphContainer} />
         <Route path='dashboard' component={DashboardContainer} />
         <Route path='arena' component={Arena} />
         <Route path='signup' component={SignUp} />

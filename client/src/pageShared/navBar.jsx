@@ -25,7 +25,7 @@ class NavBar extends React.Component {
           // })
 
         } else {
-          hashHistory.push('/');
+          // hashHistory.push('/');
         }
       });
     }

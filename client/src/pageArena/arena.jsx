@@ -6,7 +6,7 @@ import TimerContainer from './timerContainer.jsx';
 import CodeContainer from './codeContainer.jsx';
 import { resetProblem, resetCompetition } from '../actions/actions.js';
 import { socketEmitProblem } from '../socketHandler.js';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 
 require ('../styles/arena.css');
 
@@ -30,6 +30,7 @@ const spinnerImgStyle = {
 // ===============================================
 const mapStateToProps = (state) => {
   return {
+    user: state.user,
     room: state.room,
     problem: state.problem,
     competition: state.competition
@@ -54,6 +55,10 @@ class Arena extends React.Component {
 
   componentWillMount() {
     // reset problem state and competition state
+    if (this.props.user.username === undefined) {
+      hashHistory.push('/signup');
+    };
+
     this.props.resetProblem();
     this.props.resetCompetition();
 
@@ -96,12 +101,12 @@ class Arena extends React.Component {
         <div className="container">
           <div className="panel panel-default">
             <div className="panel-heading">
-              <h4 style={popupStyle}>You Completed the Problem</h4>
+              <div style={popupStyle}>You have completed the coding challenge</div>
               <Link to='/dashboard' className='btn btn-success btn-primary btn-md'>
-                Go To Previous Page?
+                Go To Previous Page
               </Link>
               <Link to='/stats' className='btn btn-info btn-primary btn-md'>
-                Go To Your Stats Page?
+                Go To Your Stats Page
               </Link>
             </div>
           </div>
@@ -115,12 +120,12 @@ class Arena extends React.Component {
         <div className="container">
           <div className="panel panel-default">
             <div className="panel-heading">
-              <h4 style={popupStyle}>Competition has ended. You can continue to work on the problem if you would like</h4>
+              <div style={popupStyle}>Competition has ended. You can continue to work on the problem if you would like.</div>
               <Link to='/dashboard' className='btn btn-success btn-primary btn-md'>
-                Go To Previous Page?
+                Go To Previous Page
               </Link>
               <Link to='/stats' className='btn btn-info btn-primary btn-md'>
-                Go To Your Stats Page?
+                Go To Your Stats Page
               </Link>
             </div>
           </div>

@@ -29,22 +29,22 @@ var drawGraph = function(el, data, problemNames) {
        newObj.totalpbls = 1;
        newArray.push(newObj);
      }
-    }); 
+    });
 
   data = newArray;
   var margin = {top: 40, right: 20, bottom: 30, left: 20},
     width = 600 - margin.left - margin.right,
     height =300 - margin.top - margin.bottom;
-     
+
   //----------for big grouping elements, dates --------------------//
   var x0 =  d3.scaleBand().rangeRound([0, width]).paddingInner(0.1);
   //----------for the smalle elements in each date, problemNames and wins------//
   var x1 = d3.scaleBand();
   var y = d3.scaleLinear()
       .rangeRound([height, 0]);
-  
+
   var color = d3.scaleOrdinal()
-    .range([ "#5dc3da", "#b2ab2e", '#60BD68', '#6a71c4', "#b2972e", "#608cbd"]);//"#a05d56", 
+    .range([ "#5dc3da", "#b2ab2e", '#60BD68', '#6a71c4', "#b2972e", "#608cbd"]);//"#a05d56",
   var xAxis = d3.axisBottom(x0);
   var yAxis = d3.axisLeft(y);
 
@@ -63,7 +63,7 @@ var drawGraph = function(el, data, problemNames) {
     "column4" : ["hard", "winshard"]
   }
 
-  
+
  var columnHeaders =d3.keys(data[0]).filter(function(key) {
    return (key !== "date" && key!=="totalpbls" && key!=="winsTotal");});
 //------------------------Below is a temporary fix------------------------------------------//
@@ -73,7 +73,7 @@ var drawGraph = function(el, data, problemNames) {
  //------------------------Below is a temporary fix------------------------------------------//
  color.domain(["easy", "medium", "hard", "winseasy", "winsmedium", "winshard"]);
 
-  
+
  data.forEach(function(d) {
    var yColumn = new Array();
    d.columnDetails = columnHeaders.map(function(name) {
@@ -89,28 +89,28 @@ var drawGraph = function(el, data, problemNames) {
       }
     }
   });
-  d.total = d3.max(d.columnDetails, function(d) { 
-    return d.yEnd; 
+  d.total = d3.max(d.columnDetails, function(d) {
+    return d.yEnd;
   });
 });
-  
-  x0.domain(data.map(function(d) { 
+
+  x0.domain(data.map(function(d) {
              return d.date; }))
-  
+
   x1.domain(d3.keys(innerColumns)).rangeRound([0, x0.bandwidth()]);
-  y.domain([0, d3.max(data, function(d) { 
-    return d.total; 
-  })]);  
+  y.domain([0, d3.max(data, function(d) {
+    return d.total;
+  })]);
   svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
-      .selectAll("text")  
+      .selectAll("text")
       .style("text-anchor", "end")
       .attr("dx", "2.0em")
       .attr("dy", ".50em")
       // .attr("transform", function(d) {
-      //     return "rotate(-80)" 
+      //     return "rotate(-80)"
       // });
 
   svg.append("g")
@@ -126,43 +126,43 @@ var drawGraph = function(el, data, problemNames) {
 
   //-----------------------------Add title-----------------------------------------//
   svg.append("text")
-        .attr("x", (width / 2))     
+        .attr("x", (width / 2))
         .attr("y", 0-(margin.top / 2))
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
         .style("text-decoration", "underline")
         .text("Performance Statistics");
-  
+
   var project_stackedbar = svg.selectAll(".project_stackedbar")
       .data(data)
       .enter().append("g")
       .attr("class", "g")
       .attr("transform", function(d) { return "translate(" + x0(d.date) + ",0)"; });
-  
-  
+
+
   project_stackedbar.selectAll("rect")
       .data(function(d) {return d.columnDetails; })
       .enter()
       .append("rect")
       .attr("width", x1.bandwidth())
-      .attr("x", function(d) { 
+      .attr("x", function(d) {
         return x1(d.column);
       })
-      .attr("y", function(d) { 
-        return y(d.yEnd); 
+      .attr("y", function(d) {
+        return y(d.yEnd);
         //return (y(d.yEnd) - 0.5);
       })
-      
-      .attr("height", function(d) { 
-        return y(d.yBegin) - y(d.yEnd); 
+
+      .attr("height", function(d) {
+        return y(d.yBegin) - y(d.yEnd);
       })
       .style("fill", function(d) { return color(d.name); })
       .on("mouseover", function() {
-        tooltip.style("display", 'inline'); 
+        tooltip.style("display", 'inline');
       })
-      .on("mouseout", function() { 
-        
-        tooltip.style("display", "none"); 
+      .on("mouseout", function() {
+
+        tooltip.style("display", "none");
       })
       .on("mousemove", function(d, i) {
         tooltip.attr("transform", "translate(" + (width/2)+ "," + (height/8) + ")");
@@ -171,7 +171,7 @@ var drawGraph = function(el, data, problemNames) {
       .duration(50);
 
     var getToolTipText = function(d) {
-      console.log(d.name);
+      // console.log(d.name);
       if(d.name === "hard") return ("Problem: Hard, Attempted: "+d.yEnd);
       if(d.name === "medium") return ("Problem: Medium, Attempted: "+d.yEnd);
       if(d.name === "easy") return ("Problem: Easy, Attempted: "+d.yEnd);
@@ -182,7 +182,7 @@ var drawGraph = function(el, data, problemNames) {
     }
     tooltip.select("text").text(getToolTipText(d));
   });
- 
+
  columnHeaders = ["Easy", "Medium", "Hard", "WinsEasy", "WinsMedium", "WinsHard"];
  color.domain(columnHeaders);
 
@@ -191,7 +191,7 @@ var drawGraph = function(el, data, problemNames) {
     .enter().append("g")
     .attr("class", "legend")
     .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; })
-   
+
 
  legend.append("rect")
     .attr("x", width )
@@ -210,7 +210,7 @@ var drawGraph = function(el, data, problemNames) {
   var tooltip = svg.append("g")
     .attr("class", "tooltip1")
     .style("display", "none");
-      
+
   tooltip.append("rect")
     .attr("fill", "red")
     .style("opacity", 0.5);

@@ -2,7 +2,7 @@ var Promise = require('bluebird');
 var Competition = require('./competition.js');
 
 var problems = [];
-const num = 100;
+const num = 2;
 
 for (var i = 0; i < num; i++) {
   problems.push(Math.floor(Math.random() * 3) + 1);

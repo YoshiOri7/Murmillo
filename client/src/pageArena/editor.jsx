@@ -17,10 +17,15 @@ const panelStyle = {
   padding: '0px'
 };
 const iframeStyle = {
-  height: '100%',
-  width: '100px',
+  height: '100px',
+  width: '300px',
   border: 'none'
 };
+const noteStyle = {
+  fontSize: 12,
+  color: '#ff8370',
+  marginLeft: 5
+}
 // ===============================================
 // consoleCode using sandboxed i-frame
 // reference: https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
@@ -61,27 +66,39 @@ class Editor extends React.Component {
               editor.focus();
               editor.getSession().setUseWrapMode(true);
             }}/>
-          <div className="panel-footer text-right clearfix ">
-            <button
-              className="btn btn-info runbtn"
-              type="button"
-              onClick={() => {
-                var code = this.props.code;
-                consoleCode(code);
-              }}
-            >Run</button>
-            <button
-              className="btn btn-success successbtn"
-              type="button"
-              onClick={() => {
-                var params = {
-                  room: this.props.room.name,
-                  problemId: this.props.room.problemId,
-                  user: this.props.username,
-                  code: this.props.code,
-                }
-                this.props.submitCode(params)}}
-            >Submit</button>
+          <div className="panel-footer clearfix ">
+
+            <div className="row">
+              <div className="col-md-8 text-left">
+                <span className='text-left' style={noteStyle}>
+                  Note: For handling unsafe javascript codes, sandboxed iframe is used on the client side and sandboxed docker container is on the server side.
+                </span>
+              </div>
+
+              <div className="col-md-4 text-right">
+                <button
+                  className="btn btn-info runbtn"
+                  type="button"
+                  onClick={() => {
+                    var code = this.props.code;
+                    consoleCode(code);
+                  }}
+                >Console</button>
+                <button
+                  className="btn btn-success successbtn"
+                  type="button"
+                  onClick={() => {
+                    var params = {
+                      room: this.props.room.name,
+                      problemId: this.props.room.problemId,
+                      user: this.props.username,
+                      code: this.props.code,
+                    }
+                    this.props.submitCode(params)}}
+                >Submit</button>
+
+              </div>
+            </div>
           </div>
         </div>
 
@@ -91,6 +108,9 @@ class Editor extends React.Component {
               style={consoleStyle}>
           <div className="panel-heading">
             Console
+            <span className='text-left' style={noteStyle}>
+              Sandboxed iframe for console logging javascript code
+            </span>
           </div>
           <div className="panel-body" style={panelStyle}>
             <iframe sandbox="allow-scripts"

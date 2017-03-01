@@ -57,7 +57,6 @@ class Timer extends React.Component {
 
   // clearTimer when component dismounts
   componentWillUnmount() {
-    console.log('unmounting********')
     clearInterval(this.timerID);
   }
 

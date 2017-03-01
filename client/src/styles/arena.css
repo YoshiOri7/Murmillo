@@ -1,6 +1,9 @@
 body{
   font-size: 16px;
 }
+.panel-heading {
+  font-size: 18px;
+}
 /*.arenaInformation{
   height:705px;
 }

@@ -1,5 +1,3 @@
-var mochaChecker = require('../mochaChecker.js');
-var syntaxChecker = require('../syntaxChecker.js');
 var dbProblem = require('../db/problem.js');
 var Axios = require('axios');
 
@@ -145,36 +143,6 @@ exports.handleGetProblem = function(socket, gameInfoForRoom) {
 
 // ================================================
 // handle submit solution
-// exports.handleSubmitSolution = function(socket) {
-//   // handle user's submitted solution
-//   socket.on('codeSubmission', function (userSolnObj) {
-//     console.log('handlingSubmitSoln');
-//
-//     var userSoln = userSolnObj.userSoln;
-//     var username = userSolnObj.username;
-//     var probID = userSolnObj.probID;
-//
-//     // 1) run syntaxChecker on userSoln file
-//     syntaxChecker(userSoln, username, probID, function(success, error, errorMessage) {
-//       if(error) {
-//         // console.log(error);
-//         socket.emit('codeSubmission', errorMessage);
-//       }
-//       if(success) {
-//         // 2) check user's solution against mochaTests
-//         console.log('running mocha checker now')
-//         mochaChecker(userSoln, username, probID, function(result){
-//           socket.emit('codeSubmission', result);
-//           socket.broadcast.emit('compUpdate', username+': '+result);
-//         });
-//       }
-//
-//     });
-//
-//   });
-//
-// };
-
 var allPassing = function (str) {
   // str = '0 out of 3 passing.';  // match = [ '0', '3' ];
   var myReg = /\d/g;
@@ -186,9 +154,8 @@ var allPassing = function (str) {
 //sends the code to a docker container to sandbox
 exports.handleSubmitSolution = function(socket, gameInfoForRoom) {
   // handle user's submitted solution
-  // AWS server:    '54.202.48.170:8510'
-  // Digital Ocean: '162.243.153.240:8510';
-  var codecheckAPI = '162.243.153.240:8510';
+  // deletegate to code checker server
+  var codecheckAPI = '104.131.140.78:8510';
 
   socket.on('codeSubmission', function (userSolnObj) {
     var userSoln = userSolnObj.userSoln;
@@ -197,7 +164,7 @@ exports.handleSubmitSolution = function(socket, gameInfoForRoom) {
 
     var destination = 'http://' + codecheckAPI + '/test/' + probID;
 
-    //send a post request to the port used by our docker container
+    // send a post request to the port used by our docker container
     Axios.post(destination, {code: userSoln})
       .then(function(response){
 

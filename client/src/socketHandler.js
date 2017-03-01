@@ -4,9 +4,9 @@
 // =============================================================
 //store socketInstance in an object for later use
 var socketInSession = {
-  '/hard': undefined,
-  '/medium': undefined,
-  '/easy': undefined
+  // '/hard': undefined,
+  // '/medium': undefined,
+  // '/easy': undefined
 };
 
 // =============================================================
@@ -25,7 +25,9 @@ const socketEmitJoin = function (roomID, username) {
     // store clientSocket instance in object so it can be accessed later
     socketInSession[nameSpace] = clientSocket;
     // emit 'join' with username
-    clientSocket.emit('join', username);
+    if (clientSocket) {
+      clientSocket.emit('join', username);
+    }
   }
 };
 
@@ -61,7 +63,10 @@ const socketEmitReady = function (roomID) {
   var clientSocket = socketInSession[nameSpace];
 
   // emit emit 'ready' event to server
-  clientSocket.emit('ready', '');
+  if (clientSocket) {
+    clientSocket.emit('ready', '');
+  }
+
 };
 // =============================================================
 const socketOnMsg = function (roomID, callback) {
@@ -83,7 +88,9 @@ const socketEmitMsg = function (roomID, username, message) {
   var userMsg = username.split(' ')[0]+': '+message;
 
   // emit 'message' event to server
-  clientSocket.emit('message', userMsg);
+  if (clientSocket) {
+    clientSocket.emit('message', userMsg);
+  }
 };
 
 // =============================================================
@@ -103,7 +110,9 @@ const socketEmitProblem = function (roomID, probID) {
   var clientSocket =  socketInSession[nameSpace];
 
   // emit 'problem' to serer with problemID
-  clientSocket.emit('problem', probID);
+  if (clientSocket) {
+    clientSocket.emit('problem', probID);
+  }
 };
 
 // =============================================================
@@ -131,7 +140,9 @@ const socketEmitSubmission = function (roomID, probID, username, userSoln, handl
   };
 
   // emit 'codeSubmission' with user's solution
-  clientSocket.emit('codeSubmission', userSolnObj);
+  if (clientSocket) {
+    clientSocket.emit('codeSubmission', userSolnObj);
+  }
 };
 
 // =============================================================

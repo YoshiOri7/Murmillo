@@ -11,8 +11,11 @@ var Sequelize = require('sequelize');
 // ==================================================
 // DB config setup
 // database = 'murmillo' | username = 'root' | password = ''
-var db = new Sequelize('murmillo', 'root', '', {
-  host: 'localhost',
+// var DBhost = 'localhost';
+var DBhost = 'mysql';
+
+var db = new Sequelize('murmillo', 'root', 'murmillo', {
+  host: DBhost,
   dialetc: 'mysql'
 });
 

@@ -1,4 +1,3 @@
-var solution = function(a,b){return ]};
 // ==============================================
 // TEST CASES
 var assert = require('assert');
@@ -17,11 +16,5 @@ describe('simple function', function() {
     expected = a + b;
     assert.equal(actual, expected);
   });
-  it('Should concatenate strings', function() {
-    var a = 'foo';
-    var b = 'bar';
-    var actual = solution(a,b);
-    assert.equal(actual, 'foobar');
-  })
 });
 // ==============================================

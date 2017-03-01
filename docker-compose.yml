@@ -1,0 +1,22 @@
+version: '2'  # specify docker-compose version
+
+# codeserver: # name of the second service
+#   image: rmaierlit/murmillo-code:latest
+#   ports:
+#     - "8510:8510" # specify port forewarding
+
+# Define the services/containers to be run
+services:
+  mainserver: # name of the first service
+    image: yoshiori/murmillo:server
+    ports:
+      - "8000:8000" # specify port forewarding
+    links:
+      - mysql
+  mysql: # name of the third service
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: murmillo
+      MYSQL_DATABASE: murmillo
+    ports:
+      - "3306:3306"

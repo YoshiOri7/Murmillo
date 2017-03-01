@@ -2,6 +2,15 @@ import React from 'react';
 import RoomContainer from './roomContainer.jsx';
 import Axios from 'axios';
 
+
+// ===============================================
+// CSS Stylying
+const noPadding = {
+  padding: 0
+}
+
+// ===============================================
+
 class RoomList extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +33,7 @@ class RoomList extends React.Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container-fluid" style={noPadding}>
         {this.state.roomList.map((room, index) =>
           <RoomContainer key={index} room={room} />
         )}

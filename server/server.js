@@ -20,10 +20,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //================================================
 // Passport
+// var githubCallback = 'http://localhost:8000'
+var githubCallback = 'http://107.170.245.45:8000'
 passport.use(new GithubStrategy({
-  clientID: 'd8bdf2c7dfe8d2f386df',
-  clientSecret: '453a911dc3499b393cfae15c5b6983887e653c2d',
-  callbackURL: 'http://localhost:3000/auth/github/callback'
+  // clientID: 'd8bdf2c7dfe8d2f386df',
+  // clientSecret: '453a911dc3499b393cfae15c5b6983887e653c2d',
+  // callbackURL: 'http://localhost:3000/auth/github/callback'
+  clientID: 'cc18ed0e0d362d456ee3',
+  clientSecret: '163aa692cd0775fea30f78dc3c8fe96e03d77ddc',
+  callbackURL: githubCallback + '/auth/github/callback'
+
   },
   function(accessToken, refreshToken, profile, done) {
     return done(null, {
@@ -67,3 +73,4 @@ app.use('/auth/github', githubRouter);
 app.use('/user', userRouter);
 
 module.exports = app;
+

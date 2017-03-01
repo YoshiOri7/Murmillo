@@ -1,9 +1,9 @@
 var Promise = require('bluebird');
 var passport = require('passport');
 var User = require('../db/user.js');
-var UserCompetitions = require('../db/UserCompetitions.js');
-var Competition = require('../db/Competition.js');
-var Problem = require('../db/Problem.js');
+var UserCompetitions = require('../db/userCompetitions.js');
+var Competition = require('../db/competition.js');
+var Problem = require('../db/problem.js');
 var UserStat = require('../db/userStat.js');
 
 const getUserStats = userId => {
@@ -98,7 +98,7 @@ module.exports.updateScore = function (req, res) {
   var newUser = {};
   Competition.create({ problemId: req.body.problemId })
   .then ((competition) => {
-    UserCompetitions.create({ 
+    UserCompetitions.create({
       competitionId: competition.id,
       userId: req.params.id,
       winner: req.body.winner || false

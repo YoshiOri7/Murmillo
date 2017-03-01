@@ -14,10 +14,12 @@ module.exports= function(userSoln, username, probID, callback) {
   // 'fail' - mocha test fails
   // 'pass' - mocha test passes
 
+  console.log('--------------------------------------------------------')
+
   // 1) grab the test cases from the 'codeChcker' folder based on probID
   // var testFileUrl = './codeChecker/test' + probID + '.js';
   try {
-    var testFileUrl = path.join(__dirname, '../mochaTestFiles/test' + probID + '.js');
+    var testFileUrl = path.join(__dirname, './mochaTestFiles/test' + probID + '.js');
     var testFileContent = fs.readFileSync(testFileUrl, 'utf8');
   } catch (err) {
     console.log('error in reading mocha test file');
@@ -26,7 +28,7 @@ module.exports= function(userSoln, username, probID, callback) {
 
   // 2) combine user's solution with the test cases and write it to file
   try {
-    var solnAndTestURL = path.join(__dirname, '../userSolnFile/ProbID'+probID+'_'+username+'Mocha.js');
+    var solnAndTestURL = path.join(__dirname, './userSolnFile/ProbID'+probID+'_'+username+'Mocha.js');
     var solnAndTestContent = userSoln + '\n' + testFileContent;
     fs.writeFileSync(solnAndTestURL, solnAndTestContent, 'utf8');
   } catch (err) {

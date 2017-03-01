@@ -9,8 +9,12 @@ import { socketEmitMsg, socketEmitReady } from '../socketHandler.js';
 // ===============================================
 // CSS Stylying
 const pStyle = {
-  fontSize: 18,
-  padding: 'none'
+  fontSize: 14,
+  padding: 'none',
+  color: '#969393',
+}
+const chatHeading = {
+  fontSize: 20,
 }
 // ===============================================
 
@@ -84,11 +88,10 @@ class Chatroom extends React.Component {
         <div className="panel panel-default">
 
           {/* ------ ChatRoomHeading ------ */}
-          <div className="panel-heading">
+          <div className="panel-heading" style={chatHeading}>
             <div className="row">
               <div className="col-md-8">
-                <div> { 'You are currently in room: '
-                        + this.props.room.name.toUpperCase() } </div>
+                <div> { 'You are currently in room: ' + this.props.room.name.toUpperCase() } </div>
                 <div style={pStyle}>
                   { 'Players in the room: ' + playerNames.join(', ')}
                 </div>
@@ -108,7 +111,7 @@ class Chatroom extends React.Component {
                 > Ready </button>
                 { allReady ?
                   <Link to='/arena' className='btn btn-info btn-primary btn-md'>
-                    START
+                    Start
                   </Link>
                   : <div></div> }
               </div>

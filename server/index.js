@@ -3,7 +3,8 @@
 
 var app = require('./server.js');
 //var userController = require('./resources/userController');
-var port = process.env.port || 3000;
+// var port = process.env.port || 3000;
+var port = 8000;
 
 const server = app.listen(port, function () {
   console.log('Murmillo listening on port ' + port);

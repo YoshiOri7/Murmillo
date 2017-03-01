@@ -32,7 +32,7 @@ var compUserDataGenerator = function(){
   }
 }
 // ----------------------------------------------
-var num = 100;
+var num = 2;
 for(var i = 0; i < num; i++) {
   fakeUserStats.push(compUserDataGenerator());
 }

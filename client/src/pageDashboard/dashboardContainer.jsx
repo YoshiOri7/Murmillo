@@ -3,6 +3,7 @@ import Dashboard from './dashboard.jsx';
 
 const mapStateToProps = (state) => {
   return {
+    user: state.user,
     currentRoom: state.room
   }
 }

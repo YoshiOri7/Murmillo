@@ -9,23 +9,23 @@ var Problem = require('./problem.js');
 var data1 = {
   id: 1,
   timelimit: 30,
-  title: 'simple function 1',
-  prompt: 'write function that returns true',
-  template: 'var solution = function() {\n  /* your code here */\n};'
+  title: 'Simple function 1',
+  prompt: 'Write a function that returns true',
+  template: ['var solution = function() {\n  /* your code here */\n};', '\n\n/* console.log */\nconsole.log("hello")'].join('')
 };
 var data2 = {
   id: 2,
   timelimit: 30,
-  title: 'simple function 2',
-  prompt: 'write function that returns parameter a',
-  template: 'var solution = function(a) {\n  /* your code here */\n};'
+  title: 'Simple function 2',
+  prompt: 'Write a function that returns parameter a',
+  template: ['var solution = function(a) {\n  /* your code here */\n};', '\n\n/* console.log */\nconsole.log("hello")'].join('')
 };
 var data3 = {
   id: 3,
   timelimit: 30,
-  title: 'simple function 3',
-  prompt: 'write function that returns the sum of paramters a and b',
-  template: 'var solution = function(a, b) {\n  /* your code here */\n};'
+  title: 'Simple function 3',
+  prompt: 'Write a function that returns the sum of parameters a and b',
+  template: ['var solution = function(a,b) {\n  /* your code here */\n};', '\n\n/* console.log */\nconsole.log("hello")'].join('')
 };
 var initialProblems = [data1, data2, data3];
 
